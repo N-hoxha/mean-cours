@@ -1,0 +1,25 @@
+
+
+
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+  margin-top: 100px;
+}
+
+input[type="file"]{ /* fshim inputin e file, sepse ngjan shum i shemtura ne ekran dhe e lidhim me butonin me larte  */
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  height: 1rem, 0;
+}
+
+.image-preview img {
+  height: 100%;
+}

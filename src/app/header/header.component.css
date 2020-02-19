@@ -1,0 +1,18 @@
+ul {
+  list-style: none; /* heqe pikat e cdo liku ne te djathte */
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration:  none; /* fshine vizen porsht flase ose fjalis*/
+  color: white;
+}
+
+.spacer { /* e con butonin ne anen e majte duke papur hapsire ne mes te navbarit */
+  flex: 1 1 auto;
+}
+
+ul { /* menyra se si e shfaq nje list te dhenash ul eshte ne menyre vertikale */
+  display: flex; /* ne na duhet qe te dhenat ti shfaqim ne menyre horizontale duke modifiku ul */
+}

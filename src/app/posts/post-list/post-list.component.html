@@ -1,0 +1,38 @@
+
+<!-- multi="true" -> ben te mundur qe kur hapet nje list dhe kur ne shtypim nje list te re ajo qe kena shtypur e para qendorn e hapur, nuk mbyllet, ne do ishte false ose nuk do ta shtonim pas cdo butoni per te shtypur nje list e para qe do hapesh dhe pasi do shtypnim nje tjeter ajo do mbyllesh do do na hepesh e dyta nuk do rinin te hapura te dyja. -->
+
+<!--  <img [src]="post.imagePath" [alt]="post.title">  lidhin images me html -->
+
+<!-- [length]= na lejon se sa posta duhet te mbajme brene si pas kushtit qe kena vendosur ne ts totalPosts = 10; -->
+<!-- [pageSize]="postsPerPage" sa posta duam te kena brenda listes -->
+<!-- [pageSizeOptions]="pageSizeOptions" nertojme nje array i cili cdo numer qe ka brenda do na parashtoje se sa posta do shfaqen si pas numrint perkates -->
+<!-- (page)="onChangedPage($event)" -> do japi informacione ne komponente se cfar do shtypi useri -->
+<mat-spinner *ngIf="isLoading"> </mat-spinner>
+<mat-accordion multi="true"  *ngIf="posts.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{ post.title }}
+    </mat-expansion-panel-header>
+    <div class="post-image">
+       <img [src]="post.imagePath" [alt]="post.title">
+    </div>
+    <p> {{ post.content }} </p>
+    <!-- ne post.module.ts creator perfaqeson nje string i cili eshte userId -->
+    <!-- *ngIf="userIsAuthenticated && userId === post.creator" -> na ndimon per te vecuar postat nga njera tjetra, per cdo user, nje user x ka akses te bej edit dhe delete vetem te posta x, kurse te posta y jo, duhet te behet login useri y qe te ket akses te posta y. -->
+    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
+      <!--  post perfaqeson post.module.ts, gjithashtu e heqim nga butonin e bejme link (a), per te na ndimuar ne routerLink -->
+      <!-- [routerLink]="['/edit', post.id]" lidhet atomatikishte me app-routing.module.ts, nga kete shkon ne post-create.component.ts -->
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]" >EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)" >DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<!-- na ndimon per te ndertuar tabelen -->
+<mat-paginator
+      [length]="totalPosts"
+      [pageSize]="postsPerPage"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onChangedPage($event)"
+      *ngIf="posts.length > 0" ></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading"> Not posts added yet!  </p>
+<!---------------------------------------- TABELA ----------------------------------------->

@@ -1,0 +1,95 @@
+<!-- Ketu po dregojme nje shembull te vogel dhe shum funksional se si punon angulari  -->
+
+<!-- [value]="'test'" -> kjo do shfaqi ne ekran test  -->
+
+<!-- [value]="newPost" -> kurse kjo do shfaqi ne ekran pa bere save post nuk ka kontakt dhe kur ti japim save do shfaqet fjalia the user post. -->
+
+<!-- Ne app.module.ts kena inprotuar FormsModule, i cili na lejon ne qe te krijom nje input me ndimen e ngModel ku ne e marim inputin te cilen e kena deklaruar ne komponent qe eshte bosh, dhe te trasferojme te newPost, kur i japim save post input qe shkruam te ngModel te shfaqet ne paragraf -->
+
+<!-- The only limitation is that the type attribute can only be one of the values supported by matInput. -->
+
+<!--  mat-raised-button eshte nje antribute qe lidhet me librarin MatButtonModule dhe e ben butonin te jete ne formen e nje drejtekendeshi -->
+
+<!-- All of the attributes that can be used with normal <input> and <textarea> elements can be used on elements inside <mat-form-field> as well. This includes Angular directives such as ngModel and formControl. -->
+
+<!--The most basic card needs only an <mat-card> element with some content. However, Angular Material provides a number of preset sections that you can use inside of an <mat-card>:-->
+
+<!-- mat-form-field eshte nje soj si div vetem se ketu jena duke perdor angular material -->
+
+<!-- ngModel me informacionin qe shkruhet breda inputi dhe e trasferon te enteredTitle dhe enteredContent -->
+
+<!-- SHUM E RENDESISHME, pa librarin  FormsModule, antributi [(ngModel)]="enteredTitle" nuk punon, por nese stojme nje <form></form> [(ngModel)]="enteredTitle" ndyshon dhe behet ngModel  -->
+
+<!--  name="title", vendoset nje name sepse angulari do te di se cili input nga Post array behet fjale  -->
+
+<!-- required atomatikisht kur inputi eshte bosh ose kur na nje gabim nga plu qe eshte viza e inputit ne ekarn  behet e kuqe, kete ben required -->
+
+<!-- minlength="3" e lejon i putin te regjistrohet nga 3 dhe lart karaktere numra ose shkronja, ne te kundert nuk e pranon te regjistrohet -->
+
+<!--  *ngIf="f.getControl('title').invalid" == me *ngIf="title.invalid" nese input ka brenda nje #title="ngModel" i cili kontrollon inputit nese eshte bosh apo ka gabime ne minlength, dhe nese ka do ta sinjalizoj useri: Please enter the post title.  -->
+
+<!-- mat-error eshte nje funksion i angular material, po ta shikojm nuk po perdor bootstrap vetem funksionet e angular material -->
+
+<!-- (submit)="onAddPost(f)" #f="ngForm", ngModel brenda inputeve dhe type="submit" te butoni bejne te mundur qe te main informacionin qe do shkruhet ne input dhe ta trasferojne ne komponent ku nga aty do trasferohet ne componente te ndyshem ose service  -->
+
+<!-- dikur ngmodel nga [ngModel]="post?.title" ka qen ngModel. Ky ndyshim u be, sepse ne duam qe ngModel na funksionojme ne dy menyra, ne menyren e para kur duam te krijome nje post dhe ngmodel mer informacionin ku e trasferon ne componet dhe ne rastin e dyre kur kete post qe sapo kena krijuar duam ta bejme edit ose update, pra marim post nga database i cili eshte regjistrua ne mongodb dhe duam ta traferojme brenda inputit html me ndimen e [ngModel]="post.title" i cili i ben te dyja funksione, per ta modifikur posten dhe per ta shtur ne database te modifikur ose te bere update ose edit, nje nga keto te treja. -->
+
+<!-- [ngModel]="post?.title", po te vem re kena nje ?, pakete funksioni post-create del error, sepse po perdorim vetem nje ngModel me dy fuksione -->
+
+<!-- *ngIf="isLoading" kjo do te thote qe isLoading eshte true | *ngIf="!isLoading" kjo tregon qe eshte false -->
+
+<!-- mat-stroked-button zbukuron butonin nuk ka nevoje per css  -->
+
+<!--  <input type="file"> ky lloj inputi na lejon qe te shkarkojme nje foto nga nje file te regjistrua ne home user te pc -->
+
+<!-- butoni (click)="filePick.click()" eshte thjeshte nje buton qe shfaqet ne ekarn ne menyre estetike, ne e lidhim ate me inputin #filePick i cili na lidh ne me file brenda pc, ndersa inputin e kena shfaqur nga ekrani dhe e kana lidh me butonin per ta ber ikonen te duket me e regullt dhe me estetike -->
+
+<!-- formControlName="title" ===  title: new FormControl -->
+<!-- formControlName="control" === content: new FormControl -->
+
+<!-- SHENIM: Ne app.module.ts kena fshire FormModule dhe e kena zvendesu me ReactiveFormsModule, per te mbar cfar do lloj vlere nga input, keshtu qe kena fshire ngModel, required minLength dhe e kena zvendesu me formControlName="title" ku cdo vlere qe shkrujme brenda input i kontrollojme ne post-create.content.ts nga  this.form = new FormGroup, ku vlerat qe marim i shtojme ne route dhe onsSavePost()-->
+
+<!-- (change)="onImagePicked($event)" na lejon ta marim se file, ose objekt dhe ta kthejme si vlere per ta regjistruar ne  array. -->
+
+<!-- form.get('image').valid" nuk e lejon nje file te shfaqe si objekt ne ekarn edhe nese ajo nuk eshte nje foto por vidjo -->
+
+<!-- "imagePreview !== '' && imagePreview nuk lejme nje string nese eshte bosh apo nuk eshte string te regjistrohet ne imagePreview -->
+
+<!-- matInput is a directive that allows native <input> and <textarea> elements to work with <mat-form-field>.  -->
+<!-- The following input types can be used with matInput: color, date, datetime-local, email, month, number, password, search, tel, text, time, url, week -->
+
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="title"
+               placeholder="Post Title">
+               <mat-error *ngIf="form.get('title').invalid">Please enter the post title.</mat-error>
+    </mat-form-field>
+     <div>
+      <button mat-stroked-button type="button" (click)="filePick.click()">Pick Image</button>
+      <input type="file" #filePick (change)="onImagePicked($event)">
+     </div>
+     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+       <img [src]="imagePreview" [alt]="form.value.title">
+     </div>
+    <mat-form-field>
+        <textarea
+                  matInput
+                  rows="4"
+                  formControlName="content"
+                  placeholder="Post Content">
+        </textarea>
+        <mat-error *ngIf="form.get('content').invalid">Please enter the post content.</mat-error>
+    </mat-form-field>
+    <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            >Save Post
+    </button>
+  </form>
+</mat-card>
+

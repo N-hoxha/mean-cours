@@ -1,0 +1,9 @@
+
+mat-form-field {
+  width: 100%; /* thjeshte zmadhojme pamjen e nje inputi ne html */
+}
+
+mat-spinner {
+  margin: auto;
+  margin-top: 100px;
+}

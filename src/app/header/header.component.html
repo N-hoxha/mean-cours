@@ -1,0 +1,24 @@
+
+
+<mat-toolbar color="primary">
+  <span> <a routerLink="/"> MyMessage </a> </span> <!-- routerLink="/" perfaqeson path: '' ne AppRoutingModule-->
+
+  <span class="spacer">  </span>
+  <ul>
+    <li *ngIf="userIsAuthonticated"> <!-- nese eshte true -->
+      <!-- mat-button e ben me te bukur linkun qe te ngjaje si buton -->
+      <!-- routerLinkActive="mat-accent" -> kur shtypim butonin ai nga blu qe eshte do behet i kuq, dhe kur shtypim nje butonin tjeter butonin qe ishte i kuq do behet blu sic ishte dhe butoni qe shtypem do behet i kuq, e meradhe-->
+      <a mat-button routerLink="/create"  routerLinkActive="mat-accent"> New Post </a>
+    </li>
+    <li  *ngIf="!userIsAuthonticated"> <!-- if flase -->
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li  *ngIf="!userIsAuthonticated">
+        <a mat-button routerLink="/singup" routerLinkActive="mat-accent">Singup</a>
+    </li>
+    <li  *ngIf="userIsAuthonticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+  </li>
+  </ul>
+
+  </mat-toolbar>

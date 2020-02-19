@@ -1,0 +1,26 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import [^,]+ from |^export | implements"
+      }
+    ],
+      "directive-selector": [
+          true,
+          "attribute",
+          "app",
+          "camelCase"
+      ],
+      "component-selector": [
+          true,
+          "element",
+          "app",
+          "kebab-case"
+      ],
+      "max-line-length": [ false ]
+  }
+
+}
